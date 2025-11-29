@@ -15,6 +15,7 @@ public class MainWindow extends JFrame {
 
 
         GamePanel gamePanel = new GamePanel();
+        gamePanel.startGameThread();
         add(gamePanel);
         pack();
     }
