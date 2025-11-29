@@ -13,10 +13,12 @@ public class MainWindow extends JFrame {
 
         setVisible(true);
 
-
         GamePanel gamePanel = new GamePanel();
         gamePanel.startGameThread();
         add(gamePanel);
+        gamePanel.requestFocusInWindow();
+
+        System.out.println("Game Started");
         pack();
     }
 }

@@ -1,20 +1,29 @@
 package View;
 
+import Helper.KeyHandler;
 import Model.Player;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class GamePanel extends JPanel implements Runnable {
-    public static final int WIDTH = 800;
-    public static final int HEIGHT = 600;
+
     private final int FPS = 60; //standard for a simple game
     Thread gameThread;
-    Player player;
+    KeyHandler keyHandler = new KeyHandler();
+    Player player = new Player(this, keyHandler);
+    public int scale = 3;
+    public int tileSize = 16*scale;
+    public int maxCol = 16;
+    public int maxRow = 16;
+    public int screenWidth = maxCol*tileSize;
+    public int screenHeight = maxRow*tileSize;
     public GamePanel() {
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setBackground(Color.black);
-        setFocusable(true); //for keyboard input
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.black);
+        this.addKeyListener(keyHandler);
+        this.setFocusable(true); //for keyboard input
+
     }
     public void startGameThread() {
         gameThread = new Thread(this);
@@ -39,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
             if(deltaTime >= 1)
             {
                 update();
+                System.out.println("updated");
                 repaint();
                 deltaTime--;
                 drawCounter++;
@@ -56,14 +66,11 @@ public class GamePanel extends JPanel implements Runnable {
     {
         player.update();
     }
-    @Override
+
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
-
-        g.setColor(Color.BLACK);
-        g.drawString("Boom Online", 100, 100);
+        Graphics2D g2  = (Graphics2D) g;
+        player.draw(g2);
+        g.dispose();
     }
 }
