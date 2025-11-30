@@ -14,46 +14,41 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
-        this.screenX = gp.screenWidth/2 -(gp.tileSize/2);;
-        this.screenY = gp.screenHeight/2 -(gp.tileSize/2);;
+        this.worldX = gp.screenWidth/2 -(gp.tileSize/2);;
+        this.worldY = gp.screenHeight/2 -(gp.tileSize/2);;
         setDefault();
         getPlayerImg();
     }
     public void update()
     {
-        System.out.println("updated player");
         //update img
         //if keyPress == "up" -> imgUp...
         if(keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed)
         {
             if(keyHandler.upPressed) {
                 direction = "up";
-                System.out.println("up pressed");
             }
             else if(keyHandler.downPressed) {
                 direction = "down";
-                System.out.println("down pressed");
             }
             else if(keyHandler.leftPressed) {
                 direction = "left";
-                System.out.println("left pressed");
             }
             else if(keyHandler.rightPressed) {
                 direction = "right";
-                System.out.println("right pressed");
             }
             switch (direction) {
                 case "up":
-                    screenY -= speed;
+                    worldY -= speed;
                     break;
                 case "down":
-                    screenY += speed;
+                    worldY += speed;
                     break;
                 case "left":
-                    screenX -= speed;
+                    worldX -= speed;
                     break;
                 case "right":
-                    screenX += speed;
+                    worldX += speed;
                     break;
             }
         }
@@ -81,7 +76,7 @@ public class Player extends Entity {
                 img = right;
                 break;
         }
-        g.drawImage(img, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g.drawImage(img, worldX, worldY, gp.tileSize, gp.tileSize, null);
     }
     public void getPlayerImg() {
         try
