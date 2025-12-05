@@ -11,6 +11,7 @@ import java.io.IOException;
 public class Player extends Entity {
     public GamePanel gp; //to check collision
     public KeyHandler keyHandler;
+    public Bomb bomb = new Bomb(false, 2);
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
@@ -52,9 +53,23 @@ public class Player extends Entity {
                     break;
             }
         }
-        if(keyHandler.spacePressed && bombCount > 0 && !dropBomb) {
-            dropBomb = true;
-            bombCount--;
+        if(keyHandler.spacePressed
+                //&& bombCount > 0
+                && !bombActive) {
+            bombActive = true;
+            bomb.bombStart = System.currentTimeMillis();
+            bomb.worldX = worldX - speed;
+            bomb.worldY = worldY  - speed;
+            //bombCount--;
+        }
+        if(bombActive) {
+            long elapsed = System.currentTimeMillis() - bomb.bombStart;
+            System.out.println(elapsed);
+
+            if(elapsed > 3000) { //3s
+                bombActive  = false;
+            }
+
         }
     }
     public void setDefault()
@@ -62,7 +77,7 @@ public class Player extends Entity {
         direction = "down";
         dropBomb = false;
         speed = 5;
-        bombCount = 2;
+        //bombCount = 2;
     }
     public void draw(Graphics2D g) {
         //add img to player
@@ -83,18 +98,9 @@ public class Player extends Entity {
                 break;
         }
         g.drawImage(img, worldX, worldY, gp.tileSize, gp.tileSize, null);
-        if (dropBomb) {
-            dropBomb = false;
-            bombActive = true;
-            bombPlacedTime = System.currentTimeMillis();
-        }
-        if(bombActive) {
-            long elapsed = System.currentTimeMillis() - bombPlacedTime;
-            if(elapsed > 1000) {
-                bombActive  = false;
-                g.drawImage(bomb, worldX, worldY, gp.tileSize, gp.tileSize, null);
-            }
-
+        if(bombActive){
+            g.drawImage(bomb.image, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
+            System.out.println("drew bomb");
         }
     }
 
@@ -105,7 +111,6 @@ public class Player extends Entity {
             down = ImageIO.read(getClass().getResourceAsStream("/Img/Player/down.png"));
             left = ImageIO.read(getClass().getResourceAsStream("/Img/Player/left.png"));
             right = ImageIO.read(getClass().getResourceAsStream("/Img/Player/right.png"));
-            bomb = ImageIO.read(getClass().getResourceAsStream("/Img/Bomb/bomb.png"));
         }
         catch (IOException e)
         {
