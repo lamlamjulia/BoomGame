@@ -10,7 +10,7 @@ public abstract class Entity {
     public String direction;
     public int bombCount;
     public boolean dropBomb;
-    public boolean bombActive;
+    public boolean bombActive, bombExploded;
     public Rectangle solidArea;
     public boolean collisionOn;
     public int solidAreaDefaultX,solidAreaDefaultY;
