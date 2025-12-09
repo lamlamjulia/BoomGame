@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Player extends Entity {
     public GamePanel gp; //to check collision
     public KeyHandler keyHandler;
-    public Bomb bomb = new Bomb(false, 2);
+    public Bomb bomb = new Bomb(false, false, 2);
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
@@ -64,12 +64,20 @@ public class Player extends Entity {
         }
         if(bombActive) {
             long elapsed = System.currentTimeMillis() - bomb.bombStart;
-            System.out.println(elapsed);
 
             if(elapsed > 3000) { //3s
                 bombActive  = false;
+                bombExploded = true;
+                bomb.explosionStart = System.currentTimeMillis();
             }
-
+        }
+        if(bombExploded)
+        {
+            long elapsed = System.currentTimeMillis() - bomb.explosionStart;
+            if(elapsed >500 )
+            {
+                bombExploded = false;
+            }
         }
     }
     public void setDefault()
@@ -101,6 +109,11 @@ public class Player extends Entity {
         if(bombActive){
             g.drawImage(bomb.image, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
             System.out.println("drew bomb");
+        }
+        if(bombExploded)
+        {
+            g.drawImage(bomb.explosionImg, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
+            System.out.println("drew explosion");
         }
     }
 
