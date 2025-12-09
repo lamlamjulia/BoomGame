@@ -3,6 +3,7 @@ package Model;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Bomb extends Entity {
     BufferedImage image, explosionImg;
@@ -31,7 +32,10 @@ public class Bomb extends Entity {
     {
         try
         {
-            explosionImg = ImageIO.read(getClass().getResourceAsStream("../Img/Bomb/bombbang.png"));
+            BufferedImage oriExplosionImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("../Img/Bomb/bombbang.png")));
+            explosionImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+            explosionImg.getGraphics().drawImage(oriExplosionImg,0,0,null);
+
             System.out.println("loaded bomb explosion img");
         }
         catch (IOException e)
