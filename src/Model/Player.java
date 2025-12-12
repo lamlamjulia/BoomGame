@@ -108,12 +108,10 @@ public class Player extends Entity {
         g.drawImage(img, worldX, worldY, gp.tileSize, gp.tileSize, null);
         if(bombActive){
             g.drawImage(bomb.image, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
-            System.out.println("drew bomb");
         }
         if(bombExploded)
         {
             g.drawImage(bomb.explosionImg, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
-            System.out.println("drew explosion");
         }
     }
 
