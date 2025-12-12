@@ -1,20 +1,32 @@
 package Model;
 
+import View.GamePanel;
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-
+//tile 0125 can be destroyed
 public class Bomb extends Entity {
     BufferedImage image, explosionImg;
     boolean bombActive, bombExploded;
     int bombCount;
+    int bombX, bombY;
     long bombStart;
     long explosionStart;
-    public Bomb(boolean bombActive, boolean exploded,int bombCount) {
+    public int bombLength;
+    public List<Point> explosionTiles = new ArrayList<>();
+    GamePanel gp;
+
+    public Bomb(boolean bombActive, boolean exploded, int bombCount, GamePanel gp) {
+        super(gp);
         this.bombActive = bombActive;
         this.bombCount = bombCount;
         this.bombExploded = exploded;
+
         setBombImage();
         setExplosionImage();
     }
@@ -41,6 +53,24 @@ public class Bomb extends Entity {
         catch (IOException e)
         {
             throw new RuntimeException(e);
+        }
+    }
+    public void calculateExplosionTiles()
+    {
+        explosionTiles.clear();
+        int tileX = worldX/ gp.tileSize;
+        int tileY = worldY/ gp.tileSize;
+
+        explosionTiles.add(new Point(tileX,tileY));
+
+
+
+    }
+    public void addExplosionLine(int x, int y, int dx, int dy)
+    {
+        for(int i = 1; i <= bombLength; i++)
+        {
+
         }
     }
 }
