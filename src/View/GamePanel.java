@@ -1,6 +1,7 @@
 package View;
 
 import Helper.KeyHandler;
+import Model.NPC;
 import Model.Player;
 import Tiles.TileManager;
 
@@ -13,6 +14,9 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     public Player player = new Player(this, keyHandler);
+    public NPC npc1 = new NPC(this, 1);
+    public NPC npc2 = new NPC(this, 2);
+    public NPC boss = new NPC(this, 1);
     public int scale = 3;
     public int tileSize = 16*scale;
     public int maxCol = 12;
@@ -75,7 +79,9 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2  = (Graphics2D) g;
         tileManager.draw(g2);
         player.draw(g2);
-
+        npc1.draw(g2);
+        npc2.draw(g2);
+        boss.draw(g2);
         g.dispose();
     }
 }
