@@ -9,13 +9,13 @@ import java.io.IOException;
 
 public class NPC extends Entity {
     public GamePanel gp;
-    public NPC(GamePanel gp, int monsterNum)
+    public NPC(GamePanel gp, int monsterNum, int X, int Y)
     {
         loadImg(monsterNum);
         this.gp = gp;
         //to be changed
-        this.worldX = 30;
-        this.worldY = 30;
+        this.worldX = X;
+        this.worldY = Y;
         this.speed = 5;
     }
     public void loadImg(int monsterNum)
@@ -49,7 +49,21 @@ public class NPC extends Entity {
     public void update()
     {
         //collisionCheck, if hit something, change direction
-
+        switch (direction)
+        {
+            case "up":
+                worldY -= speed;
+                break;
+            case "down":
+                worldY += speed;
+                break;
+            case "left":
+                worldX -= speed;
+                break;
+            case "right":
+                worldX += speed;
+                break;
+        }
     }
     public void draw(Graphics2D g2d)
     {

@@ -14,9 +14,9 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
     public Player player = new Player(this, keyHandler);
-    public NPC npc1 = new NPC(this, 1);
-    public NPC npc2 = new NPC(this, 2);
-    public NPC boss = new NPC(this, 1);
+    public NPC npc1 = new NPC(this, 1, 30, 30);
+    public NPC npc2 = new NPC(this, 2, 100, 100);
+    public NPC boss = new NPC(this, 3, 150, 150);
     public int scale = 3;
     public int tileSize = 16*scale;
     public int maxCol = 12;
@@ -72,6 +72,13 @@ public class GamePanel extends JPanel implements Runnable {
     public void update()
     {
         player.update();
+        //to be changed
+        npc1.direction = "up";
+        npc2.direction = "down";
+        boss.direction = "left";
+        npc1.update();
+        npc2.update();
+        boss.update();
     }
 
     public void paintComponent(Graphics g) {
