@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Player extends Entity {
     public GamePanel gp; //to check collision
     public KeyHandler keyHandler;
-    public Bomb bomb = new Bomb(false, false, 2);
+    public Bomb bomb = new Bomb(false, false, 2, gp);
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
         this.keyHandler = keyHandler;
@@ -122,6 +122,7 @@ public class Player extends Entity {
             down = ImageIO.read(getClass().getResourceAsStream("/Img/Player/down.png"));
             left = ImageIO.read(getClass().getResourceAsStream("/Img/Player/left.png"));
             right = ImageIO.read(getClass().getResourceAsStream("/Img/Player/right.png"));
+            dead = ImageIO.read(getClass().getResourceAsStream("/Img/Player/dead.png"));
         }
         catch (IOException e)
         {

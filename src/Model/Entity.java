@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 public abstract class Entity {
     public int worldX,worldY, screenX,screenY;
     public int speed;
-    BufferedImage up, down, left, right, bomb;
+    BufferedImage up, down, left, right, bomb, dead;
     public String direction;
     public int bombCount;
     public boolean dropBomb;

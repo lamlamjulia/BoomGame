@@ -22,7 +22,7 @@ public class Bomb extends Entity {
     GamePanel gp;
 
     public Bomb(boolean bombActive, boolean exploded, int bombCount, GamePanel gp) {
-        super(gp);
+        //super(gp);
         this.bombActive = bombActive;
         this.bombCount = bombCount;
         this.bombExploded = exploded;
@@ -70,6 +70,8 @@ public class Bomb extends Entity {
     {
         for(int i = 1; i <= bombLength; i++)
         {
+            int nx = x + dx * i;
+            int ny = y + dy * i;
 
         }
     }
