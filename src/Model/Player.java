@@ -11,14 +11,19 @@ import java.io.IOException;
 public class Player extends Entity {
     public GamePanel gp; //to check collision
     public KeyHandler keyHandler;
-    public Bomb bomb = new Bomb(false, false, 2, gp);
+    public Bomb bomb;
+    public int bombX, bombY;
+    public int bombExpX, bombExpY;
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
+        this.charHeight = gp.tileSize;
+        this.charWidth = gp.tileSize;
         this.keyHandler = keyHandler;
-        this.worldX = gp.screenWidth/2 -(gp.tileSize/2);;
-        this.worldY = gp.screenHeight/2 -(gp.tileSize/2);;
+        this.worldX = 100;;
+        this.worldY = 100;;
         setDefault();
         getPlayerImg();
+        this.bomb = new Bomb(false, false, 2, gp);
     }
     public void update()
     {
@@ -52,14 +57,16 @@ public class Player extends Entity {
                     worldX += speed;
                     break;
             }
+            worldX = Math.max(gp.LEFT, Math.min(worldX, gp.RIGHT+this.charWidth));
+            worldY = Math.max(gp.TOP, Math.min(worldY, gp.BOTTOM-3*this.charHeight));
         }
         if(keyHandler.spacePressed
                 //&& bombCount > 0
                 && !bombActive) {
             bombActive = true;
             bomb.bombStart = System.currentTimeMillis();
-            bomb.worldX = worldX - speed;
-            bomb.worldY = worldY  - speed;
+            bombX = worldX - speed;
+            bombY = worldY  - speed;
             //bombCount--;
         }
         if(bombActive) {
@@ -105,13 +112,15 @@ public class Player extends Entity {
                 img = right;
                 break;
         }
-        g.drawImage(img, worldX, worldY, gp.tileSize, gp.tileSize, null);
+        g.drawImage(img, worldX, worldY, charWidth, charHeight, null);
         if(bombActive){
-            g.drawImage(bomb.image, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
+            g.drawImage(bomb.image, bombX, bombY, gp.tileSize, gp.tileSize, null);
         }
         if(bombExploded)
         {
-            g.drawImage(bomb.explosionImg, bomb.worldX, bomb.worldY, gp.tileSize, gp.tileSize, null);
+            bombExpX = bombX- gp.tileSize;
+            bombExpY = bombY - gp.tileSize;
+            g.drawImage(bomb.explosionImg, bombExpX, bombExpY, 3*gp.tileSize, 3*gp.tileSize, null);
         }
     }
 

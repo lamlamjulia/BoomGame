@@ -1,10 +1,14 @@
 package Model;
 
+import View.GamePanel;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
-    public int worldX,worldY, screenX,screenY;
+    public int worldX,worldY;
+    public int charWidth;
+    public int charHeight;
     public int speed;
     BufferedImage up, down, left, right, bomb, dead;
     public String direction;
@@ -17,4 +21,5 @@ public abstract class Entity {
     public String name;
     public int currentHealth;
     public int maxHealth;
+
 }

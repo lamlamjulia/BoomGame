@@ -22,11 +22,12 @@ public class Bomb extends Entity {
     GamePanel gp;
 
     public Bomb(boolean bombActive, boolean exploded, int bombCount, GamePanel gp) {
-        //super(gp);
+        this.gp = gp;
         this.bombActive = bombActive;
         this.bombCount = bombCount;
         this.bombExploded = exploded;
-
+        this.charWidth = gp.tileSize;
+        this.charHeight = gp.tileSize;
         setBombImage();
         setExplosionImage();
     }
@@ -35,7 +36,6 @@ public class Bomb extends Entity {
     {
         try {
             image = ImageIO.read(getClass().getResourceAsStream("../Img/Bomb/bomb.png"));
-            System.out.println("loaded bomb img");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -44,11 +44,7 @@ public class Bomb extends Entity {
     {
         try
         {
-            BufferedImage oriExplosionImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("../Img/Bomb/bombbang.png")));
-            explosionImg = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-            explosionImg.getGraphics().drawImage(oriExplosionImg,0,0,null);
-
-            System.out.println("loaded bomb explosion img");
+            explosionImg = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("../Img/Bomb/bombbang.png")));
         }
         catch (IOException e)
         {
@@ -60,11 +56,7 @@ public class Bomb extends Entity {
         explosionTiles.clear();
         int tileX = worldX/ gp.tileSize;
         int tileY = worldY/ gp.tileSize;
-
         explosionTiles.add(new Point(tileX,tileY));
-
-
-
     }
     public void addExplosionLine(int x, int y, int dx, int dy)
     {
