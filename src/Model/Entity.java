@@ -21,5 +21,4 @@ public abstract class Entity {
     public String name;
     public int currentHealth;
     public int maxHealth;
-
 }

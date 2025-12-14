@@ -16,14 +16,16 @@ public class Player extends Entity {
     public int bombExpX, bombExpY;
     public Player(GamePanel gp, KeyHandler keyHandler) {
         this.gp = gp;
-        this.charHeight = gp.tileSize;
-        this.charWidth = gp.tileSize;
+        this.charHeight = 56;
+        this.charWidth = 45;
         this.keyHandler = keyHandler;
         this.worldX = 100;;
         this.worldY = 100;;
         setDefault();
         getPlayerImg();
         this.bomb = new Bomb(false, false, 2, gp);
+        this.solidArea = new Rectangle(8,8,29,40);
+
     }
     public void update()
     {
