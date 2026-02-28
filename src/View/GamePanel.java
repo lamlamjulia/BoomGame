@@ -1,5 +1,6 @@
 package View;
 
+import Helper.CollisionChecker;
 import Helper.KeyHandler;
 import Model.Entity;
 import Model.NPC;
@@ -14,6 +15,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final int FPS = 60; //standard for a simple game
     Thread gameThread;
     KeyHandler keyHandler = new KeyHandler();
+    CollisionChecker collisionChecker = new CollisionChecker();
 
     public int scale = 3;
     public int tileSize = 16*scale;
@@ -82,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
         npc1.update();
         npc2.update();
         boss.update();
+        collisionChecker.checkTile(player);
     }
 
     public void paintComponent(Graphics g) {

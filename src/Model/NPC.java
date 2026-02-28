@@ -19,6 +19,7 @@ public class NPC extends Entity {
         this.worldX = X;
         this.worldY = Y;
         this.direction = direction;
+        this.solidArea = new Rectangle(2,20,20,20);
     }
     public void loadImg(int monsterNum)
     {
