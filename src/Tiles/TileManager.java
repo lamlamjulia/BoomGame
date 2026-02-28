@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     public GamePanel gp;
-    public Tile tiles[];
-    public int mapMatrix[][];
+    public Tile[] tiles;
+    public int[][] mapMatrix;
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tiles = new Tile[10];
@@ -111,5 +111,10 @@ public class TileManager {
         {
             e.printStackTrace();
         }
+    }
+
+    public int[][] getMapMatrix()
+    {
+        return mapMatrix;
     }
 }

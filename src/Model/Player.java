@@ -24,7 +24,7 @@ public class Player extends Entity {
         setDefault();
         getPlayerImg();
         this.bomb = new Bomb(false, false, 2, gp);
-        this.solidArea = new Rectangle(8,8,29,40);
+        this.solidArea = new Rectangle(0,35,42,15);
 
     }
     public void update()
@@ -45,19 +45,26 @@ public class Player extends Entity {
             else if(keyHandler.rightPressed) {
                 direction = "right";
             }
-            switch (direction) {
-                case "up":
-                    worldY -= speed;
-                    break;
-                case "down":
-                    worldY += speed;
-                    break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+
+            //check collision
+            collisionOn = false;
+            gp.collisionChecker.checkTile(this);
+            //if collision is false -> move
+            if(!collisionOn){
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
             worldX = Math.max(gp.LEFT, Math.min(worldX, gp.RIGHT+this.charWidth));
             worldY = Math.max(gp.TOP, Math.min(worldY, gp.BOTTOM-3*this.charHeight));
