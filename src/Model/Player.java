@@ -25,15 +25,21 @@ public class Player extends Entity {
         getPlayerImg();
         this.bomb = new Bomb(false, false, 2, gp);
         this.solidArea = new Rectangle(0,35,42,15);
-
+        this.currentHealth = 1;
     }
     public void update()
     {
         //update img
         //if keyPress == "up" -> imgUp...
-        if(keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed)
+        if(keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed ||keyHandler.cPressed)
+                //|| this.currentHealth == 0)
         {
-            if(keyHandler.upPressed) {
+            //this.currentHealth == 0
+            if(keyHandler.cPressed)
+            {
+                direction = "dead";
+            }
+            else if(keyHandler.upPressed) {
                 direction = "up";
             }
             else if(keyHandler.downPressed) {
@@ -45,6 +51,7 @@ public class Player extends Entity {
             else if(keyHandler.rightPressed) {
                 direction = "right";
             }
+
 
             //check collision
             collisionOn = false;
@@ -102,6 +109,7 @@ public class Player extends Entity {
         dropBomb = false;
         speed = 5;
         //bombCount = 2;
+        currentHealth = 1;
     }
     public void draw(Graphics2D g) {
         //add img to player
@@ -119,6 +127,9 @@ public class Player extends Entity {
                 break;
             case "right":
                 img = right;
+                break;
+            case "dead":
+                img = dead;
                 break;
         }
         g.drawImage(img, worldX, worldY, charWidth, charHeight, null);
@@ -146,6 +157,5 @@ public class Player extends Entity {
         {
             e.printStackTrace();
         }
-
     }
 }
